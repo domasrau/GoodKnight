@@ -10,7 +10,6 @@ public class Player : MonoBehaviour
     public int coins = 0;
     public TextMeshProUGUI coinText;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -30,4 +29,15 @@ public class Player : MonoBehaviour
         coins += amount;
         coinText.text = "Coins: " + coins;
     }
+
+    //public void DieIfFalling()
+    //{
+    //    if (this.gameobject.GetComponent<Rigidbody2D>().velocity == "" )
+    //    {
+
+
+    //    }
+
+    //}
+
 }
