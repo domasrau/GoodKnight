@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public float health = 100;
     public int coins = 0;
     public TextMeshProUGUI coinText;
+    public LevelController levelController;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +22,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        DieIfFalling();
     }
 
     public void AddCoins(int amount)
@@ -30,14 +31,14 @@ public class Player : MonoBehaviour
         coinText.text = "Coins: " + coins;
     }
 
-    //public void DieIfFalling()
-    //{
-    //    if (this.gameobject.GetComponent<Rigidbody2D>().velocity == "" )
-    //    {
+    public void DieIfFalling()
+    {
+        if (this.gameObject.GetComponent<Rigidbody2D>().velocity.y <= -100)
+        {
+            levelController.GameOver();
+        }
+    }
 
-
-    //    }
-
-    //}
+    
 
 }
