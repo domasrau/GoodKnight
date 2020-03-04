@@ -6,6 +6,8 @@ public class Chest : MonoBehaviour
 {
     [SerializeField] private Sprite opened;
     public GameObject diamond;
+    public GameObject diamondPrefab;
+    public Transform transformObj;
 
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -15,7 +17,9 @@ public class Chest : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 this.gameObject.GetComponent<SpriteRenderer>().sprite = opened;
-                diamond.SetActive(true);
+                diamond = GameObject.Instantiate(diamondPrefab, this.transform.position, this.transform.rotation);
+                diamond.transform.position = transformObj.position;
+                //diamond.SetActive(true);
             }
             
         }
@@ -23,7 +27,7 @@ public class Chest : MonoBehaviour
 
     private void Start()
     {
-        diamond.SetActive(false);
+        //diamond.SetActive(false);
     }
 
 }
