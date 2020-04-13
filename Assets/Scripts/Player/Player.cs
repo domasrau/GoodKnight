@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
         health = 100;
         coins = 0;
         AddCoins(0);
+        //this.gameObject.transform.position = levelController.checkPoint.position;
     }
 
     // Update is called once per frame
@@ -38,6 +39,8 @@ public class Player : MonoBehaviour
             levelController.GameOver();
         }
     }
+
+
 
     
 

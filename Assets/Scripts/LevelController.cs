@@ -7,11 +7,14 @@ public class LevelController : MonoBehaviour
 {
     public GameObject gameOverPanel;
     public GameObject levelCompletePanel;
+    public Transform checkPoint;
+    public Player player;
 
     public void Start()
     {
         Time.timeScale = 1;
         gameOverPanel.SetActive(false);
+        player.gameObject.transform.position = new Vector3(PlayerPrefs.GetFloat("PlayerPositionX", 2.3f), PlayerPrefs.GetFloat("PlayerPositionY", -23.9f), 0);
     }
 
     // Update is called once per frame
@@ -43,5 +46,12 @@ public class LevelController : MonoBehaviour
     {
         Time.timeScale = 0;
         levelCompletePanel.SetActive(true);
+    }
+
+    public void SaveCheckPoint(Transform transform)
+    {
+        checkPoint.position = transform.position;
+        PlayerPrefs.SetFloat("PlayerPositionX", checkPoint.position.x);
+        PlayerPrefs.SetFloat("PlayerPositionY", checkPoint.position.y);
     }
 }

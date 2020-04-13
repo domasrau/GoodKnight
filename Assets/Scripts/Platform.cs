@@ -15,8 +15,8 @@ public class Platform : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log("go down "+ goDown);
-        Debug.Log("pos " + this.transform.position.y);
+        //Debug.Log("go down "+ goDown);
+        //Debug.Log("pos " + this.transform.position.y);
         if (goDown)
         {
             this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - 0.02f, 0);
