@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
+    public bool isVertical; // if false -> is horizontal
     private bool goDown = true; // if false -> goes up
+    public float positionCeiling;
+    public float positionFloor;
+    public float speed;
 
     // Start is called before the first frame update
     void Start()
@@ -17,20 +21,23 @@ public class Platform : MonoBehaviour
     {
         //Debug.Log("go down "+ goDown);
         //Debug.Log("pos " + this.transform.position.y);
-        if (goDown)
+        if (isVertical)
         {
-            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - 0.02f, 0);
-            if (this.transform.position.y < -31)
+            if (goDown)
             {
-                goDown = false;
+                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y - speed, 0);
+                if (this.transform.position.y < positionCeiling)
+                {
+                    goDown = false;
+                }
             }
-        }
-        else
-        {
-            this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.02f, 0);
-            if (this.transform.position.y > -20)
+            else
             {
-                goDown = true;
+                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + speed, 0);
+                if (this.transform.position.y > positionFloor)
+                {
+                    goDown = true;
+                }
             }
         }
         

@@ -5,29 +5,34 @@ using UnityEngine;
 public class Chest : MonoBehaviour
 {
     [SerializeField] private Sprite opened;
-    public GameObject diamond;
+    private GameObject diamond;
     public GameObject diamondPrefab;
     public Transform transformObj;
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            Debug.Log("Player touched me.. (" + gameObject.name + ")");
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                this.gameObject.GetComponent<SpriteRenderer>().sprite = opened;
-                diamond = GameObject.Instantiate(diamondPrefab, this.transform.position, this.transform.rotation);
-                diamond.transform.position = transformObj.position;
-                //diamond.SetActive(true);
-            }
-            
-        }
-    }
-
+    private bool isOpened = false;
+    
     private void Start()
     {
         //diamond.SetActive(false);
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            if (!isOpened)
+            {
+                Debug.Log("Player touched me.. (" + gameObject.name + ")");
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    isOpened = true;
+                    Debug.LogError("Spawning");
+                    this.gameObject.GetComponent<SpriteRenderer>().sprite = opened;
+                    diamond = GameObject.Instantiate(diamondPrefab, this.transform.position, this.transform.rotation);
+                    diamond.transform.position = transformObj.position;
+                    //diamond.SetActive(true);
+                }
+            }
+
+        }
     }
 
 }

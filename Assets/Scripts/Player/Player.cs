@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public int coins = 0;
     public TextMeshProUGUI coinText;
     public LevelController levelController;
+    private Rigidbody2D rigidbody;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,7 @@ public class Player : MonoBehaviour
         coins = 0;
         AddCoins(0);
         //this.gameObject.transform.position = levelController.checkPoint.position;
+        rigidbody = this.gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -34,14 +36,28 @@ public class Player : MonoBehaviour
 
     public void DieIfFalling()
     {
-        if (this.gameObject.GetComponent<Rigidbody2D>().velocity.y <= -100)
+        if (rigidbody.velocity.y <= -100)
         {
             levelController.GameOver();
         }
     }
 
 
+    public IEnumerator Knockback(float knockDur, float knockbackPwr, Vector3 knockbackDir)
+    {
+        float timer = 0;
+        while (knockDur > timer)
+        {
 
-    
+            timer += Time.deltaTime;
+
+            rigidbody.AddForce(new Vector3(knockbackDir.x * -100, knockbackDir.y * knockbackPwr, transform.position.z));
+
+        }
+        yield return 0;
+    }
+
+
+
 
 }

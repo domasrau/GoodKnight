@@ -5,6 +5,7 @@ using UnityEngine;
 public class Torch : MonoBehaviour
 {
     public LevelController levelController;
+    public ParticleSystem particle;
     private bool isLit = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -16,6 +17,7 @@ public class Torch : MonoBehaviour
             if (!isLit)
             {
                 GetComponent<AudioSource>().Play();
+                particle.Play();
             }
             isLit = true;
             levelController.SaveCheckPoint(collision.gameObject.transform);
