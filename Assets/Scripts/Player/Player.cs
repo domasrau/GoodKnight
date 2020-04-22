@@ -57,7 +57,10 @@ public class Player : MonoBehaviour
         yield return 0;
     }
 
-
+    public void Die()
+    {
+        levelController.GameOver();
+    }
 
 
 }

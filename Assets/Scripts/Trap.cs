@@ -28,6 +28,7 @@ public class Trap : MonoBehaviour
             collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
             collision.gameObject.GetComponent<Rigidbody2D>().angularVelocity = 0;
             collision.gameObject.GetComponent<Rigidbody2D>().AddRelativeForce(hitDirection * 700);
+            collision.gameObject.GetComponent<ParticleSystem>().Play();
         }
     }
 
