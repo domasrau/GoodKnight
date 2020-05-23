@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4133968894594445770}
   - component: {fileID: 4133968894594445769}
   - component: {fileID: 4133968894594445768}
+  - component: {fileID: 3960795210220319851}
   m_Layer: 0
   m_Name: Cherry
   m_TagString: Untagged
@@ -114,3 +115,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56a380824ce9650408ac0028551def04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  value: 1
+  particle: {fileID: 0}
+--- !u!61 &3960795210220319851
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4133968894594445774}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.003933817, y: 0.008362718}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.21, y: 0.21}
+    newSize: {x: 0.21, y: 0.21}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.19228819, y: 0.16375922}
+  m_EdgeRadius: 0

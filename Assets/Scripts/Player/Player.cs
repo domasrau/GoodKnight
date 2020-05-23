@@ -6,26 +6,37 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    public float health = 100;
+    public float currentHealth = 5;
+    public float maxHealth = 5;
     public int coins = 0;
     public TextMeshProUGUI coinText;
+    public TextMeshProUGUI healthText;
     public LevelController levelController;
     private Rigidbody2D rigidbody;
 
     // Start is called before the first frame update
     void Start()
     {
-        health = 100;
+        currentHealth = maxHealth;
         coins = 0;
         AddCoins(0);
         //this.gameObject.transform.position = levelController.checkPoint.position;
         rigidbody = this.gameObject.GetComponent<Rigidbody2D>();
+        healthText.text = "Health Points: " + currentHealth.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
         DieIfFalling();
+        if (Input.GetKeyDown(KeyCode.KeypadMinus))
+        {
+            TakeDamage(1);
+        }
+        if (Input.GetKeyDown(KeyCode.KeypadPlus))
+        {
+            AddHealth(1);
+        }
     }
 
     public void AddCoins(int amount)
@@ -60,6 +71,31 @@ public class Player : MonoBehaviour
     public void Die()
     {
         levelController.GameOver();
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth = currentHealth - damage;
+        healthText.text = "Health Points: " + currentHealth.ToString();
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            healthText.text = "Health Points: " + currentHealth.ToString();
+            Die();
+        }
+    }
+
+    public void AddHealth(int amount)
+    {
+        if (currentHealth + amount >= maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        else
+        {
+            currentHealth = currentHealth + amount;
+        }
+        healthText.text = "Health Points: " + currentHealth.ToString();
     }
 
 

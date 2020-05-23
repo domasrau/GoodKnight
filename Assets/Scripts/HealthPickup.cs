@@ -4,15 +4,33 @@ using UnityEngine;
 
 public class HealthPickup : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private int value = 1;
+    [SerializeField] private ParticleSystem particle;
+    private bool collected = false;
+    
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (collision.gameObject.tag == "Player")
+        {
+            if (!collected)
+            {
+                collected = true;
+                if (particle != null)
+                {
+                    particle.Play();
+                }
+                Debug.Log("Player touched me.. (" + gameObject.name + ")");
+                collision.gameObject.GetComponent<Player>().AddHealth(value);
+                value = 0;
+                GetComponent<SpriteRenderer>().enabled = false;
+                StartCoroutine(DestroyAfterTime(0.5f));
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator DestroyAfterTime(float time)
     {
-        
+        yield return new WaitForSecondsRealtime(time);
+        Destroy(this.gameObject);
     }
 }
