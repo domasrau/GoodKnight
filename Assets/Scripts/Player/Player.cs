@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class Player : MonoBehaviour
     public TextMeshProUGUI healthText;
     public LevelController levelController;
     private Rigidbody2D rigidbody;
+
+    public Image[] hearts;
+    public Sprite fullHeart;
+    public Sprite emptyHeart;
 
     // Start is called before the first frame update
     void Start()
@@ -37,12 +42,33 @@ public class Player : MonoBehaviour
         {
             AddHealth(1);
         }
+
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (i < currentHealth)
+            {
+                hearts[i].sprite = fullHeart;
+            }
+            else
+            {
+                hearts[i].sprite = emptyHeart;
+            }
+
+            if (i < 5)
+            {
+                hearts[i].enabled = true;
+            }
+            else
+            {
+                hearts[i].enabled = false;
+            }
+        }
     }
 
     public void AddCoins(int amount)
     {
         coins += amount;
-        coinText.text = "Coins: " + coins;
+        coinText.text = coins.ToString();
     }
 
     public void DieIfFalling()
