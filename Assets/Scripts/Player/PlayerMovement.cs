@@ -6,6 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
 
     public CharacterController2D controller;
+    public AudioSource audio;
+    public AudioClip running;
+    public AudioClip jumping;
     private Animator animator;
 
     public float runSpeed = 40f;
@@ -26,8 +29,18 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             jump = true;
+            audio.clip = jumping;
+            audio.loop = false;
             animator.SetBool("isJumping", true);
-            
+            if (audio.isPlaying && audio.clip == jumping)
+            {
+                return;
+            }
+            else
+            {
+                audio.Play();
+            }
+                       
         }
     }
 
@@ -38,6 +51,22 @@ public class PlayerMovement : MonoBehaviour
 
             // Move our character
             controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump);
+            if (horizontalMove != 0f && GetComponent<CharacterController2D>().IsGrounded())
+            {
+                if (!audio.isPlaying)
+                {
+                    audio.clip = running;
+                    audio.loop = true;
+                    audio.Play();
+                }
+            }
+            else if (horizontalMove == 0f && GetComponent<CharacterController2D>().IsGrounded())
+            {
+                if (audio.clip != jumping)
+                {
+                    audio.Stop();
+                }                
+            }
             jump = false;
         }
 

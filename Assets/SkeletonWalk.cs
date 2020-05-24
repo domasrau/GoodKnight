@@ -30,6 +30,11 @@ public class SkeletonWalk : StateMachineBehaviour
         if (Vector2.Distance(player.position, rigidbody.position) <= attackRange)
         {
             animator.SetTrigger("Attack");
+            if (!animator.GetComponent<AudioSource>().isPlaying)
+            {
+                animator.GetComponent<AudioSource>().Play();
+            }
+            
         }
         
     }

@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     public bool isDead = false;
     public bool opensAChest = false;
     public Chest chest;
+    public AudioClip deathSound;
 
     public int maxHealth = 100;
     int currentHealth;
@@ -52,6 +53,8 @@ public class Enemy : MonoBehaviour
     {
         isDead = true;
         GetComponent<Animator>().SetTrigger("Die");
+        GetComponent<AudioSource>().clip = deathSound;
+        GetComponent<AudioSource>().Play();
         StartCoroutine(DisableCollider());
 
         if (opensAChest)

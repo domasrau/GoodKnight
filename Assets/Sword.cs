@@ -14,6 +14,7 @@ public class Sword : MonoBehaviour
             {
                 collected = true;
                 Debug.Log("Player touched me.. (" + gameObject.name + ")");
+                GetComponent<AudioSource>().Play();
                 collision.gameObject.GetComponent<Animator>().SetBool("hasSword", true);
                 GetComponent<SpriteRenderer>().enabled = false;
                 StartCoroutine(DestroyAfterTime(0.5f));

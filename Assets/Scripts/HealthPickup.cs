@@ -19,11 +19,12 @@ public class HealthPickup : MonoBehaviour
                 {
                     particle.Play();
                 }
+                GetComponent<AudioSource>().Play();
                 Debug.Log("Player touched me.. (" + gameObject.name + ")");
                 collision.gameObject.GetComponent<Player>().AddHealth(value);
                 value = 0;
                 GetComponent<SpriteRenderer>().enabled = false;
-                StartCoroutine(DestroyAfterTime(0.5f));
+                StartCoroutine(DestroyAfterTime(GetComponent<AudioSource>().clip.length));
             }
         }
     }

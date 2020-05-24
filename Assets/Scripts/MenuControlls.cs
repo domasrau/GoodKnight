@@ -1,12 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuControlls : MonoBehaviour
 {
     public GameObject aboutPage;
     public GameObject levelSelect;
+    public GameObject settings;
+
+    public Text musicText;
+    public Text colorText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +29,7 @@ public class MenuControlls : MonoBehaviour
 
     public void NewGame()
     {
-        PlayerPrefs.DeleteAll();
+        PlayerPrefs.SetInt("NewGame", 1);
         SceneManager.LoadScene("SampleScene");
     }
 
@@ -51,6 +58,16 @@ public class MenuControlls : MonoBehaviour
         levelSelect.SetActive(false);
     }
 
+    public void EnableSettings()
+    {
+        settings.SetActive(true);
+    }
+
+    public void CloseSettings()
+    {
+        settings.SetActive(false);
+    }
+
     public void LoadLevel1()
     {
         SceneManager.LoadScene("SampleScene");
@@ -59,5 +76,39 @@ public class MenuControlls : MonoBehaviour
     public void LoadLevel2()
     {
         SceneManager.LoadScene("SampleScene");
+    }
+
+    public void ToggleMusic()
+    {
+        int musicToggle = 1;
+        if (musicText.text == "ON")
+        {
+            musicToggle = 0;
+            musicText.text = "OFF";
+        }
+        else
+        {
+            musicToggle = 1;
+            musicText.text = "ON";
+        }
+        PlayerPrefs.SetInt("MusicToggle", musicToggle);
+        Debug.Log("Music set to " + musicToggle.ToString());
+    }
+
+    public void ToggleColor()
+    {
+        int colorToggle = 1;
+        if (colorText.text == "ON")
+        {
+            colorToggle = 0;
+            colorText.text = "OFF";
+        }
+        else
+        {
+            colorToggle = 1;
+            colorText.text = "ON";
+        }
+        PlayerPrefs.SetInt("ColorToggle", colorToggle);
+        Debug.Log("Color set to " + colorToggle.ToString());
     }
 }
