@@ -6,7 +6,7 @@ public class Chest : MonoBehaviour
 {
     [SerializeField] private Sprite opened;
     private GameObject diamond;
-    public GameObject diamondPrefab;
+    public GameObject spawnItemPrefab;
     public Transform transformObj;
     private bool isOpened = false;
     
@@ -26,13 +26,22 @@ public class Chest : MonoBehaviour
                     isOpened = true;
                     Debug.LogError("Spawning");
                     this.gameObject.GetComponent<SpriteRenderer>().sprite = opened;
-                    diamond = GameObject.Instantiate(diamondPrefab, this.transform.position, this.transform.rotation);
+                    diamond = GameObject.Instantiate(spawnItemPrefab, this.transform.position, this.transform.rotation);
                     diamond.transform.position = transformObj.position;
                     //diamond.SetActive(true);
                 }
             }
 
         }
+    }
+
+    public void OpenChest()
+    {
+        isOpened = true;
+        Debug.LogError("Spawning");
+        this.gameObject.GetComponent<SpriteRenderer>().sprite = opened;
+        diamond = GameObject.Instantiate(spawnItemPrefab, this.transform.position, this.transform.rotation);
+        diamond.transform.position = transformObj.position;
     }
 
 }

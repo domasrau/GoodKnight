@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   opened: {fileID: 8688212494263025684, guid: 0f99cd69691d2f94e8eddeb63948a20d, type: 3}
-  diamondPrefab: {fileID: 2414818308080048900, guid: bd6c018ced211884b8045c3360971b4f,
+  spawnItemPrefab: {fileID: 2414818308080048900, guid: bd6c018ced211884b8045c3360971b4f,
     type: 3}
   transformObj: {fileID: 1665306525}
 --- !u!61 &314314312337736570

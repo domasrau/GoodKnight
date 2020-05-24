@@ -19,6 +19,17 @@ public class Player : MonoBehaviour
     public Sprite fullHeart;
     public Sprite emptyHeart;
 
+    public Transform jumpingAttackPoint;
+    public float jumpingAttackRange = 0.5f;
+
+    public Transform swordAttackPoint;
+    public float swordAttackRange = 0.5f;
+    public int swordAttackDamage = 100;
+
+    public float attackRate = 2f;
+    float nextAttackTime = 0;
+    public LayerMask enemyLayers;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,6 +76,22 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        if (GetComponent<CharacterController2D>().IsGrounded())
+        {
+            JumpAttack();
+        }
+        if (Time.time >= nextAttackTime)
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                Attack();
+                nextAttackTime = Time.time + 1f / attackRate;
+            }
+        }        
+    }
+
     public void AddCoins(int amount)
     {
         coins += amount;
@@ -103,6 +130,7 @@ public class Player : MonoBehaviour
     {
         currentHealth = currentHealth - damage;
         healthText.text = "Health Points: " + currentHealth.ToString();
+        GetComponent<ParticleSystem>().Play();
         if (currentHealth <= 0)
         {
             currentHealth = 0;
@@ -124,5 +152,49 @@ public class Player : MonoBehaviour
         healthText.text = "Health Points: " + currentHealth.ToString();
     }
 
+
+    public void JumpAttack()
+    {
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(jumpingAttackPoint.position, jumpingAttackRange, enemyLayers);
+
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            Debug.LogError("I hit " + enemy.name);
+            if (enemy.name == "Skeleton")
+            {
+                enemy.GetComponent<Enemy>().Die();
+            }
+            
+        }
+    }
+
+
+    public void Attack()
+    {
+        if (!GetComponent<Animator>().GetBool("hasSword"))
+        {
+            return;
+        }
+
+        GetComponent<Animator>().SetTrigger("Attack");
+
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(swordAttackPoint.position, swordAttackRange, enemyLayers);
+
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            Debug.LogError("I hit " + enemy.name);
+            enemy.GetComponent<Enemy>().TakeDamage(swordAttackDamage);
+        }
+    }
+
+
+    public void OnDrawGizmosSelected()
+    {
+        if (swordAttackPoint == null)
+        {
+            return;
+        }
+        Gizmos.DrawWireSphere(swordAttackPoint.position, swordAttackRange);
+    }
 
 }
