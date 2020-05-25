@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     public bool isFlipped = false;
     public bool isDead = false;
     public bool opensAChest = false;
+    public bool canMove = true;
     public Chest chest;
     public AudioClip deathSound;
     public int scoreReward = 500;
@@ -19,7 +20,7 @@ public class Enemy : MonoBehaviour
     int currentHealth;
 
     public Teleporter tp;
-
+    public LevelController levelController;
 
     private void Start()
     {
@@ -70,6 +71,7 @@ public class Enemy : MonoBehaviour
         if (isBoss)
         {
             GetComponent<Animator>().SetBool("Die", true);
+            StartCoroutine(ShowWin());
         }
         else
         {
@@ -93,5 +95,11 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(0.2f);
         GetComponent<BoxCollider2D>().enabled = false;
+    }
+
+    public IEnumerator ShowWin()
+    {
+        yield return new WaitForSecondsRealtime(2f);
+        levelController.LevelComplete();
     }
 }

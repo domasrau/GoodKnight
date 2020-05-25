@@ -3589,6 +3589,7 @@ MonoBehaviour:
   settings: {fileID: 394027694}
   musicText: {fileID: 1785439206}
   colorText: {fileID: 1290307613}
+  audio: {fileID: 702141041}
 --- !u!1 &1393258062
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ public class BossLevelController : MonoBehaviour
     void Start()
     {
         player.GetComponent<Animator>().SetBool("hasSword", true);
+        player.GetComponent<Player>().AddCoins(PlayerPrefs.GetInt("Coins", 0));
     }
 
     // Update is called once per frame

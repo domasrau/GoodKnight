@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-        coins = PlayerPrefs.GetInt("Coins", 0);
+        coins = 0;
         score = 0;
         AddCoins(0);
         //this.gameObject.transform.position = levelController.checkPoint.position;
@@ -98,7 +98,6 @@ public class Player : MonoBehaviour
     {
         coins += amount;
         coinText.text = coins.ToString();
-        PlayerPrefs.SetInt("Coins", coins);
     }
 
     public void DieIfFalling()

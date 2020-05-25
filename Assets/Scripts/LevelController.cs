@@ -8,8 +8,10 @@ public class LevelController : MonoBehaviour
 {
     public GameObject gameOverPanel;
     public GameObject levelCompletePanel;
+    public GameObject pausePanel;
     public Transform checkPoint;
     public Text scoreText;
+    public Text finalScoreText;
     public Player player;
     public int reloadScene = 1;
     public int levelNumber = 1;
@@ -35,6 +37,22 @@ public class LevelController : MonoBehaviour
                 RestartLevel();
             }            
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (gameOverPanel.activeSelf || levelCompletePanel.activeSelf)
+            {
+                return;
+            }
+            if (!pausePanel.activeSelf)
+            {
+                Pause();
+            }
+            else
+            {
+                Resume();
+            }
+        }
     }
 
 
@@ -54,6 +72,7 @@ public class LevelController : MonoBehaviour
     public void LevelComplete()
     {
         Time.timeScale = 0;
+        finalScoreText.text = "Score: " + CalculateScore().ToString();
         levelCompletePanel.SetActive(true);
     }
 
@@ -71,5 +90,22 @@ public class LevelController : MonoBehaviour
         score += player.coins * 100;
         score += player.currentHealth * 100;
         return score;
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadSceneAsync(0);
+    }
+
+    public void Pause()
+    {
+        Time.timeScale = 0;
+        pausePanel.SetActive(true);
+    }
+
+    public void Resume()
+    {
+        Time.timeScale = 1;
+        pausePanel.SetActive(false);
     }
 }

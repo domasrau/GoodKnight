@@ -14,6 +14,8 @@ public class MenuControlls : MonoBehaviour
     public Text musicText;
     public Text colorText;
 
+    public AudioSource audio;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +32,7 @@ public class MenuControlls : MonoBehaviour
     public void NewGame()
     {
         PlayerPrefs.SetInt("NewGame", 1);
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadSceneAsync("SampleScene");
     }
 
     public void QuitGame()
@@ -70,12 +72,12 @@ public class MenuControlls : MonoBehaviour
 
     public void LoadLevel1()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadSceneAsync("SampleScene");
     }
 
     public void LoadLevel2()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadSceneAsync("BossLevel");
     }
 
     public void ToggleMusic()
@@ -85,11 +87,13 @@ public class MenuControlls : MonoBehaviour
         {
             musicToggle = 0;
             musicText.text = "OFF";
+            audio.Stop();
         }
         else
         {
             musicToggle = 1;
             musicText.text = "ON";
+            audio.Play();
         }
         PlayerPrefs.SetInt("MusicToggle", musicToggle);
         Debug.Log("Music set to " + musicToggle.ToString());

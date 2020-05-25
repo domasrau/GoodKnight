@@ -16,7 +16,8 @@ public class Teleporter : MonoBehaviour
             {
                 if (isActive)
                 {
-                    SceneManager.LoadScene(2);
+                    PlayerPrefs.SetInt("Coins", collision.gameObject.GetComponent<Player>().coins);
+                    SceneManager.LoadSceneAsync(2);
                     Debug.LogError("Teleporting");
                 }
                 
