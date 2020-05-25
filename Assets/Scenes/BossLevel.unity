@@ -82198,6 +82198,7 @@ MonoBehaviour:
   scoreText: {fileID: 691321893}
   player: {fileID: 613727423}
   reloadScene: 2
+  levelNumber: 2
 --- !u!4 &1979695572
 Transform:
   m_ObjectHideFlags: 0

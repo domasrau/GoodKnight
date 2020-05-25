@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour
     public int maxHealth = 100;
     int currentHealth;
 
+    public Teleporter tp;
+
 
     private void Start()
     {
@@ -65,7 +67,16 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         isDead = true;
-        GetComponent<Animator>().SetBool("Die", true);
+        if (isBoss)
+        {
+            GetComponent<Animator>().SetBool("Die", true);
+        }
+        else
+        {
+            GetComponent<Animator>().SetTrigger("SkeleDie");
+            tp.DisableCover();
+        }
+        
         GetComponent<AudioSource>().clip = deathSound;
         GetComponent<AudioSource>().Play();
 

@@ -12,12 +12,17 @@ public class LevelController : MonoBehaviour
     public Text scoreText;
     public Player player;
     public int reloadScene = 1;
+    public int levelNumber = 1;
 
     public void Start()
     {
         Time.timeScale = 1;
         gameOverPanel.SetActive(false);
-        player.gameObject.transform.position = new Vector3(PlayerPrefs.GetFloat("PlayerPositionX", 2.3f), PlayerPrefs.GetFloat("PlayerPositionY", -23.9f), 0);
+        if (levelNumber == 1)
+        {
+            player.gameObject.transform.position = new Vector3(PlayerPrefs.GetFloat("PlayerPositionX", 2.3f), PlayerPrefs.GetFloat("PlayerPositionY", -23.9f), 0);
+
+        }
     }
 
     // Update is called once per frame
