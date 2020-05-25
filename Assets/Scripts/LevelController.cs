@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelController : MonoBehaviour
 {
     public GameObject gameOverPanel;
     public GameObject levelCompletePanel;
     public Transform checkPoint;
+    public Text scoreText;
     public Player player;
+    public int reloadScene = 1;
 
     public void Start()
     {
@@ -33,13 +36,14 @@ public class LevelController : MonoBehaviour
     public void GameOver()
     {
         Time.timeScale = 0;
+        scoreText.text = "SCORE: " + CalculateScore().ToString();
         gameOverPanel.SetActive(true);
     }
 
     public void RestartLevel()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(reloadScene);
     }
 
     public void LevelComplete()
@@ -53,5 +57,14 @@ public class LevelController : MonoBehaviour
         checkPoint.position = transform.position;
         PlayerPrefs.SetFloat("PlayerPositionX", checkPoint.position.x);
         PlayerPrefs.SetFloat("PlayerPositionY", checkPoint.position.y);
+    }
+
+    public int CalculateScore()
+    {
+        int score = 0;
+        score = player.score;
+        score += player.coins * 100;
+        score += player.currentHealth * 100;
+        return score;
     }
 }

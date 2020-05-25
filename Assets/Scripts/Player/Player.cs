@@ -7,9 +7,10 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
 
-    public float currentHealth = 5;
-    public float maxHealth = 5;
+    public int currentHealth = 5;
+    public int maxHealth = 5;
     public int coins = 0;
+    public int score = 0;
     public TextMeshProUGUI coinText;
     public TextMeshProUGUI healthText;
     public LevelController levelController;
@@ -34,7 +35,8 @@ public class Player : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-        coins = 0;
+        coins = PlayerPrefs.GetInt("Coins", 0);
+        score = 0;
         AddCoins(0);
         //this.gameObject.transform.position = levelController.checkPoint.position;
         rigidbody = this.gameObject.GetComponent<Rigidbody2D>();
@@ -96,6 +98,7 @@ public class Player : MonoBehaviour
     {
         coins += amount;
         coinText.text = coins.ToString();
+        PlayerPrefs.SetInt("Coins", coins);
     }
 
     public void DieIfFalling()

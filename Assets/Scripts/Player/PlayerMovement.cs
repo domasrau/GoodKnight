@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
                 if (!audio.isPlaying)
                 {
                     audio.clip = running;
-                    audio.loop = true;
+                    audio.loop = false;
                     audio.Play();
                 }
             }

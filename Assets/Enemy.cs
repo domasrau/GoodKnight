@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public bool isBoss = false;
+    public HealthBar healthBar;
+
     public Transform player;
     public bool isFlipped = false;
     public bool isDead = false;
     public bool opensAChest = false;
     public Chest chest;
     public AudioClip deathSound;
+    public int scoreReward = 500;
 
     public int maxHealth = 100;
     int currentHealth;
@@ -18,6 +22,10 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
+        if (isBoss)
+        {
+            healthBar.SetMaxValue(maxHealth);
+        }
     }
 
     public void LookAtPlayer()
@@ -43,6 +51,11 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        GetComponent<Animator>().SetTrigger("Hit");
+        if (isBoss)
+        {
+            healthBar.SetHealth(currentHealth);
+        }
         if (currentHealth <= 0)
         {
             Die();
@@ -52,9 +65,11 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         isDead = true;
-        GetComponent<Animator>().SetTrigger("Die");
+        GetComponent<Animator>().SetBool("Die", true);
         GetComponent<AudioSource>().clip = deathSound;
         GetComponent<AudioSource>().Play();
+
+        player.GetComponent<Player>().score += scoreReward;
         StartCoroutine(DisableCollider());
 
         if (opensAChest)

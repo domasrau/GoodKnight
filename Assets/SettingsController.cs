@@ -10,7 +10,7 @@ public class SettingsController : MonoBehaviour
 
     private void Awake()
     {
-        if (PlayerPrefs.GetInt("MusicToggle") == 1)
+        if (PlayerPrefs.GetInt("MusicToggle", 0) == 1)
         {
             audio.Play();
         }
@@ -18,7 +18,7 @@ public class SettingsController : MonoBehaviour
         {
             audio.Stop();
         }
-        if (PlayerPrefs.GetInt("ColorToggle") == 1)
+        if (PlayerPrefs.GetInt("ColorToggle", 1) == 1)
         {
             ColorGrading colorGrading;
             postProcessing.profile.TryGetSettings(out colorGrading);
@@ -32,6 +32,7 @@ public class SettingsController : MonoBehaviour
         }
         if (PlayerPrefs.GetInt("NewGame") == 1)
         {
+            PlayerPrefs.SetInt("NewGame", 0);
             PlayerPrefs.DeleteAll();
         }
     }
