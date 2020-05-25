@@ -23,7 +23,6 @@ public class SkeletonWalk : StateMachineBehaviour
     {
         if (!enemy.isBoss && enemy.canMove == false)
         {
-            Debug.LogWarning("NEJUDU ");
             return;
         }
         enemy.LookAtPlayer();
@@ -40,8 +39,7 @@ public class SkeletonWalk : StateMachineBehaviour
                 animator.GetComponent<AudioSource>().Play();
             }
             
-        }
-        
+        }        
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

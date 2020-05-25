@@ -6,10 +6,14 @@ using UnityEngine.Rendering.PostProcessing;
 public class SettingsController : MonoBehaviour
 {
     public AudioSource audio;
+    //public AudioClip[] clips;
     public PostProcessVolume postProcessing;
 
     private void Awake()
     {
+        //int index = Random.Range(0, clips.Length);
+        //audio.clip = clips[index];
+
         if (PlayerPrefs.GetInt("MusicToggle", 0) == 1)
         {
             audio.Play();
